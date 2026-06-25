@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# cloudflare
+.wrangler/
+
+# logs
+npm-debug.log*
+*.log
+
+# env
+.env
+.env.*
+!.env.example
+
+# os / editor
+.DS_Store
+.vscode/
+.idea/
+
+# test / coverage
+coverage/
