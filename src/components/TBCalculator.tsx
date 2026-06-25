@@ -32,6 +32,71 @@ function Result({ value }: { value: string }) {
   );
 }
 
+// Unit conversion. The dosing math always runs in kg/cm; these only convert the
+// user's typed value. Exact factors: 1 lb = 0.45359237 kg, 1 in = 2.54 cm.
+const KG_PER_LB = 0.45359237;
+const CM_PER_IN = 2.54;
+
+type WeightUnit = 'kg' | 'lb';
+type HeightUnit = 'cm' | 'in';
+
+/**
+ * Round a converted value for display, dropping trailing zeros. Uses 2 decimals
+ * so a unit round-trip (kg -> lb -> kg) doesn't drift enough to shift the
+ * 1-decimal clinical outputs (BMI, CrCl, etc.).
+ */
+function fmtConvert(n: number): string {
+  return String(Math.round(n * 100) / 100);
+}
+
+/** A small inline segmented control to switch a field's unit. */
+function UnitToggle<T extends string>({
+  value,
+  options,
+  onChange,
+  label,
+}: {
+  value: T;
+  options: readonly [T, T];
+  onChange: (u: T) => void;
+  label: string;
+}) {
+  return (
+    <span
+      role="group"
+      aria-label={label}
+      className="inline-flex shrink-0 overflow-hidden rounded border border-gray-300 text-xs leading-none"
+    >
+      {options.map((opt) => (
+        <button
+          key={opt}
+          type="button"
+          aria-pressed={opt === value}
+          onClick={() => onChange(opt)}
+          className={
+            'px-2 py-1 ' +
+            (opt === value
+              ? 'bg-gray-800 text-white'
+              : 'bg-white text-gray-600 hover:bg-gray-100')
+          }
+        >
+          {opt}
+        </button>
+      ))}
+    </span>
+  );
+}
+
+/** A label row that keeps text and an inline unit toggle aligned. */
+function UnitLabel({ text, children }: { text: string; children: React.ReactNode }) {
+  return (
+    <div className="mt-4 flex items-center gap-2 text-[15px] text-gray-900">
+      <span>{text}</span>
+      {children}
+    </div>
+  );
+}
+
 /** A numeric text input matching the original small/medium field sizing. */
 function NumberField({
   id,
@@ -60,15 +125,42 @@ function NumberField({
 export default function TBCalculator() {
   const [gender, setGender] = useState<Gender>('');
   const [weight, setWeight] = useState('');
+  const [weightUnit, setWeightUnit] = useState<WeightUnit>('kg');
   const [height, setHeight] = useState('');
+  const [heightUnit, setHeightUnit] = useState<HeightUnit>('cm');
   const [age, setAge] = useState('');
   const [creatinine, setCreatinine] = useState('');
   const [rrt, setRrt] = useState<RenalReplacement>('');
 
+  // Switching units converts the currently-typed value so the real measurement
+  // is preserved (e.g. 100 kg -> 220.5 lb).
+  function changeWeightUnit(u: WeightUnit) {
+    if (u === weightUnit) return;
+    if (weight !== '' && !Number.isNaN(Number(weight))) {
+      const kg = weightUnit === 'kg' ? Number(weight) : Number(weight) * KG_PER_LB;
+      setWeight(fmtConvert(u === 'kg' ? kg : kg / KG_PER_LB));
+    }
+    setWeightUnit(u);
+  }
+  function changeHeightUnit(u: HeightUnit) {
+    if (u === heightUnit) return;
+    if (height !== '' && !Number.isNaN(Number(height))) {
+      const cm = heightUnit === 'cm' ? Number(height) : Number(height) * CM_PER_IN;
+      setHeight(fmtConvert(u === 'cm' ? cm : cm / CM_PER_IN));
+    }
+    setHeightUnit(u);
+  }
+
+  // Always feed the dosing math in kg/cm, regardless of the chosen display unit.
+  const weightKg: NumberInput =
+    weight === '' ? '' : weightUnit === 'kg' ? Number(weight) : Number(weight) * KG_PER_LB;
+  const heightCm: NumberInput =
+    height === '' ? '' : heightUnit === 'cm' ? Number(height) : Number(height) * CM_PER_IN;
+
   const inputs: DosingInputs = {
     gender,
-    weight: toNumberInput(weight),
-    height: toNumberInput(height),
+    weight: weightKg,
+    height: heightCm,
     age: toNumberInput(age),
     creatinine: toNumberInput(creatinine),
     rrt,
@@ -77,7 +169,9 @@ export default function TBCalculator() {
   const result = useMemo(() => calculate(inputs), [
     gender,
     weight,
+    weightUnit,
     height,
+    heightUnit,
     age,
     creatinine,
     rrt,
@@ -109,11 +203,25 @@ export default function TBCalculator() {
       </div>
 
       {/* Weight */}
-      <Label>Weight(kg)</Label>
+      <UnitLabel text={weightUnit === 'kg' ? 'Weight(kg)' : 'Weight(lb)'}>
+        <UnitToggle
+          value={weightUnit}
+          options={['kg', 'lb']}
+          onChange={changeWeightUnit}
+          label="Weight units"
+        />
+      </UnitLabel>
       <NumberField id="weight" value={weight} onChange={setWeight} step="any" />
 
       {/* Height */}
-      <Label>Height(cm)</Label>
+      <UnitLabel text={heightUnit === 'cm' ? 'Height(cm)' : 'Height(in)'}>
+        <UnitToggle
+          value={heightUnit}
+          options={['cm', 'in']}
+          onChange={changeHeightUnit}
+          label="Height units"
+        />
+      </UnitLabel>
       <NumberField id="height" value={height} onChange={setHeight} step="any" />
 
       {/* BMI (calculated) */}
