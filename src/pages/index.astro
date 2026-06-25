@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+import TBCalculator from '../components/TBCalculator.tsx';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="TB Drug Dosage Calculator — calculates Pyrazinamide and Ethambutol dosing using Lean Body Weight (James Equation)."
+    />
+    <title>TB Drug Dosage Calculator – Pyrazinamide and Ethambutol dose calculator</title>
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
+    <main class="mx-auto max-w-3xl px-5 py-10">
+      <h1 class="text-3xl font-extrabold tracking-tight">TB Drug Dosage Calculator</h1>
+
+      <p class="mt-6 text-[15px] font-bold">
+        Disclaimer: Not intended to be official medical advice. Please consult your physician before
+        starting any new medications.
+      </p>
+
+      <p class="mt-5 text-[15px]">
+        Calculates drug dosing for Pyrazinamide and Ethambutol using Lean Body Weight(James Equation)
+      </p>
+
+      <!-- Interactive calculator (React island) -->
+      <section class="mt-2">
+        <TBCalculator client:load />
+      </section>
+
+      <!-- Preserved intended-use / clinical guidance text -->
+      <p class="mt-8 text-[15px]">
+        Therapeutic drug monitoring to guide dose adjustment is recommended in the follow
+        circumstances:<br />
+        — Patients with LBW &gt;90<br />
+        — Patients with suspected or proven malabsorption<br />
+        — Other forms of renal replacement (e.g. peritoneal dialysis), doses are administered 3 times
+        per week in conjunction with therapeutic drug monitoring
+      </p>
+
+      <p class="mt-5 text-[15px]">
+        If the patient&rsquo;s Serum Creatinine(SCr) suggests eGFR is less than 30 (if input is SCr,
+        eGFR calculated per Cockroft-Gault equation), OR if the patient is on renal replacement
+        therapy, the dosing is the same mg per dose, but given less frequently according to method of
+        renal replacement. If on intermittent hemodialysis, doses are timed after each HD session. For
+        other forms of renal replacement (e.g. peritoneal dialysis), the doses are timed 3 times a week
+      </p>
+
+      <hr class="mx-auto my-8 w-40 border-gray-200" />
+
+      <p class="text-[15px]">
+        <a
+          class="text-blue-700 underline-offset-2 hover:underline"
+          href="https://tbcalculator.com/tb-calculator/references/">Calculator Logic and References</a
+        >
+      </p>
+      <p class="mt-5 text-[15px]">
+        <a
+          class="text-blue-700 underline-offset-2 hover:underline"
+          href="mailto:mannevijay@gmail.com">For comments, questions or suggestions</a
+        >
+      </p>
+    </main>
+
+    <footer class="mx-auto max-w-3xl px-5 py-8 text-xs text-gray-500">
+      TB Drug Dosage Calculator
+    </footer>
+  </body>
+</html>
