@@ -1,0 +1,172 @@
+---
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Calculator logic and references for the TB Drug Dosage Calculator (Pyrazinamide and Ethambutol)."
+    />
+    <title>Calculator Logic and References – TB Drug Dosage Calculator</title>
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
+    <main class="mx-auto max-w-3xl px-5 py-10">
+      <p class="text-[15px]">
+        <a class="text-blue-700 underline-offset-2 hover:underline" href="/">&larr; Back to the calculator</a>
+      </p>
+
+      <h1 class="mt-4 text-3xl font-extrabold tracking-tight">Calculator Logic and References</h1>
+
+      <!-- Calculator Logic -->
+      <p class="mt-6 text-[15px] font-bold">Calculator Logic</p>
+      <p class="mt-2 text-[15px] italic">
+        **Recommended Rx and Ranges round up to closest available dosage, using scored tablet
+        formulations available in US market.
+      </p>
+
+      <!-- Table 1: Pyrazinamide -->
+      <div class="mt-5 overflow-x-auto">
+        <table class="w-full border-collapse text-[15px]">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-3 py-2 text-left font-semibold">
+                Lean Body Weight(kg)
+              </th>
+              <th class="border border-gray-300 px-3 py-2 text-center font-semibold">40&ndash;55</th>
+              <th class="border border-gray-300 px-3 py-2 text-center font-semibold">56&ndash;75</th>
+              <th class="border border-gray-300 px-3 py-2 text-center font-semibold">76&ndash;90</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2">Daily dosing</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">1000mg</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">1500mg</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">2000mg</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2">Three times a week dosing</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">1500mg</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">2500mg</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">3000mg</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-2 text-[15px] italic">
+        Suggested Pyrazinamide Dosing (IF CrCl &gt;30). Adapted from ATS/CDC/IDSA 2016 clinical
+        practice guidelines for treatment of drug-susceptible tuberculosis.
+      </p>
+
+      <!-- Table 2: Ethambutol -->
+      <div class="mt-5 overflow-x-auto">
+        <table class="w-full border-collapse text-[15px]">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-3 py-2 text-left font-semibold">
+                Lean Body Weight(kg)
+              </th>
+              <th class="border border-gray-300 px-3 py-2 text-center font-semibold">40&ndash;55</th>
+              <th class="border border-gray-300 px-3 py-2 text-center font-semibold">56&ndash;75</th>
+              <th class="border border-gray-300 px-3 py-2 text-center font-semibold">76&ndash;90</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2">Daily Dosing</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">800mg</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">1200mg</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">1600mg</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-3 py-2">Three times weekly dosing</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">1200mg</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">2000mg</td>
+              <td class="border border-gray-300 px-3 py-2 text-center">2400mg</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-2 text-[15px] italic">
+        Suggested Ethambutol Dosing (IF CrCl &gt;30). Adapted from ATS/CDC/IDSA 2016 clinical practice
+        guidelines for treatment of drug-susceptible tuberculosis.
+      </p>
+
+      <!-- Overall dose ranges -->
+      <p class="mt-6 text-[15px]">
+        Overall Dose Ranges for PZA: 18.2-26.8mg/kg(max 2000mg)<br />
+        Overall Dose Ranges for EMB: 14.5-21.4mg/kg(max 1600mg)<br />
+        If CrCl &gt;30, NOT receiving renal replacement therapy, and LBW 40-90, then dosing as per
+        tables above.
+      </p>
+
+      <p class="mt-5 text-[15px]">
+        If CrCl &gt;30, NOT receiving renal replacement therapy, and LBW &lt; 40 then PZA 20mg/kg and
+        EMB 15mg/kg<br />
+        Dose Range PZA: 20-25mg/kg(max 2000mg)<br />
+        Dose Range EMB: 15-20mg/kg(max 1600mg)
+      </p>
+
+      <p class="mt-5 text-[15px]">
+        If CrCl &lt; 30 OR receiving renal replacement therapy then PZA ~30mg/kg and EMB 15mg/kg with
+        dose frequency as described on main page<br />
+        Dose Range PZA: 25-35mg/kg(max 2000mg)<br />
+        Dose Range EMB: 15-25mg/kg(max 1600mg)
+      </p>
+
+      <!-- Equations & references -->
+      <ul class="mt-6 list-disc space-y-2 pl-6 text-[15px]">
+        <li>
+          James Equation for Lean Body Mass Calculation:
+          <ul class="mt-2 list-disc space-y-1 pl-6">
+            <li>Male Lean Body Mass (kg) = (1.1 * wtKg) - 128 * (wtKg/htCm)^2</li>
+            <li>Female Lean Body Mass (kg) = (1.07 * wtKg) - 148 * (wtKg/htCm)^2</li>
+            <li>
+              As described in the poster
+              <a
+                class="text-blue-700 underline-offset-2 hover:underline"
+                href="http://muirheads.co.uk/richard/RM_poster.pdf">here</a
+              >, the James Equation arrives at a local maximum above a male BMI of 43 and female BMI
+              of 36.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Cockcroft-Gault Equation
+          <ul class="mt-2 list-disc space-y-1 pl-6">
+            <li>CrCl(mL/min) = (140 &ndash; age) &times; (weight, kg) &times; (0.85 if female) / (72 &times; Cr)</li>
+          </ul>
+        </li>
+        <li>
+          Dosing of PZA and EMB by weight bands in adults with normal renal function:
+          <a
+            class="break-all text-blue-700 underline-offset-2 hover:underline"
+            href="https://www.idsociety.org/practice-guideline/treatment-of-drug-susceptible-tb/"
+            >https://www.idsociety.org/practice-guideline/treatment-of-drug-susceptible-tb/</a
+          >
+        </li>
+        <li>
+          Dosing of PZA and EMB in adults with renal insufficiency/failure:
+          <a
+            class="break-all text-blue-700 underline-offset-2 hover:underline"
+            href="https://www.currytbcenter.ucsf.edu/sites/default/files/tb_sg3_chap7_co-morbidities.pdf#renalfailure"
+            >https://www.currytbcenter.ucsf.edu/sites/default/files/tb_sg3_chap7_co-morbidities.pdf#renalfailure</a
+          >
+        </li>
+      </ul>
+
+      <hr class="mx-auto my-8 w-40 border-gray-200" />
+      <p class="text-[15px]">
+        <a class="text-blue-700 underline-offset-2 hover:underline" href="/">&larr; Back to the calculator</a>
+      </p>
+    </main>
+
+    <footer class="mx-auto max-w-3xl px-5 py-8 text-xs text-gray-500">
+      TB Drug Dosage Calculator
+    </footer>
+  </body>
+</html>
