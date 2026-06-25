@@ -1,0 +1,8 @@
+# Cloudflare Workers — static-assets-only deployment.
+# Astro is built with `output: 'static'`, so there is NO server entrypoint:
+# we intentionally omit `main` and just serve the built `dist/` directory.
+name = "tb-dosage-calculator"
+compatibility_date = "2026-06-25"
+
+[assets]
+directory = "./dist"
